@@ -1,0 +1,1 @@
+/home/sebastian-elliott-pedrosa/template_ws/env/lib/python3.12/site-packages/pkg_resources/tests/data/my-test-package-source/setup.py
