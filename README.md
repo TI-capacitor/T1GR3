@@ -1,4 +1,5 @@
 # T1GR3
+# 📌 Don"t attempt to run this version...Use main. This is very broken.
 to launch this you need 2 terminals open
 One should be in your PX4-Autopilot folder, and anotheer one inside your template_ws folder
 in PX4-Autopilot
