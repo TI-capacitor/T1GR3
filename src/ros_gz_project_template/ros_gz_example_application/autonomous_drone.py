@@ -1,11 +1,8 @@
 import rclpy
 from rclpy.node import Node
 import asyncio
-import numpy as np
-import cv2
 from mavsdk import System
-from mavsdk.offboard import Offboard, PositionNedYaw, VelocityNedYaw
-
+from mavsdk.offboard import PositionNedYaw
 
 class AutonomousDrone(Node):
     def __init__(self):
@@ -35,18 +32,25 @@ class AutonomousDrone(Node):
         self.get_logger().info("Armed successfully.")
 
         self.get_logger().info("Starting Offboard Mode...")
-        await self.drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, -5.0, 0.0))
+        # Send multiple setpoints to ensure PX4 accepts Offboard mode
+        self.get_logger().info("Sending initial setpoints...")
+        for _ in range(10):  # Send setpoints for ~1 second before enabling Offboard
+            await self.drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, -5.0, 0.0))
+            await asyncio.sleep(0.1)
+
+        self.get_logger().info("Starting Offboard Mode...")
         await self.drone.offboard.start()
         self.get_logger().info("Offboard mode started.")
 
     async def takeoff(self):
         """ Takeoff to a specified altitude. """
         self.get_logger().info("Taking off...")
-        await self.drone.action.set_takeoff_altitude(5.0)  # 5m altitude
+        await self.drone.action.set_takeoff_altitude(10)  # 5m altitude
         await self.drone.action.takeoff()
 
         async for position in self.drone.telemetry.position():
-            if position.relative_altitude_m >= 4.8:  # Slight buffer for takeoff success
+            self.get_logger().info(f"Current altitude: {position.relative_altitude_m}")
+            if position.relative_altitude_m >= 9.5:  # Slight buffer for takeoff success
                 self.get_logger().info("Reached takeoff altitude!")
                 break
             await asyncio.sleep(1)
@@ -63,9 +67,10 @@ class AutonomousDrone(Node):
         for pos in positions:
             if self.marker_found:
                 break
+            self.get_logger().info(f"Setting position to {pos}")
             await self.drone.offboard.set_position_ned(pos)
             self.get_logger().info(f"Flying to {pos}")
-            await asyncio.sleep(2)
+            await asyncio.sleep(5)  # Increase sleep duration to ensure the drone has time to move
 
     async def precision_land(self):
         """ Perform precision landing when marker is found. """
