@@ -1,0 +1,28 @@
+# Build files
+build/
+install/
+log/
+*.o
+*.so
+*.a
+*.out
+
+# Virtual environments
+.venv/
+env/
+/template_ws/.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ROS 2-specific ignores
+log/
+install/
+build/
+colcon/  # If using colcon build system
+
+# Editor & OS files
+.vscode/
+.idea/
+*.swp
+.DS_Store
