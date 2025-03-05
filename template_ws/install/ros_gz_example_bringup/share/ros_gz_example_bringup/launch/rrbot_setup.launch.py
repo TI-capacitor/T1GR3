@@ -1,1 +1,1 @@
-/home/sebastian-elliott-pedrosa/template_ws/src/ros_gz_project_template/ros_gz_example_bringup/launch/rrbot_setup.launch.py
+/home/sebastian-elliott-pedrosa/T1GR3/template_ws/src/ros_gz_project_template/ros_gz_example_bringup/launch/rrbot_setup.launch.py

@@ -1,8 +1,8 @@
-# Install script for directory: /home/sebastian-elliott-pedrosa/template_ws/src/ros_gz_project_template/ros_gz_example_gazebo
+# Install script for directory: /home/sebastian-elliott-pedrosa/T1GR3/template_ws/src/ros_gz_project_template/ros_gz_example_gazebo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/sebastian-elliott-pedrosa/template_ws/install/ros_gz_example_gazebo")
+  set(CMAKE_INSTALL_PREFIX "/home/sebastian-elliott-pedrosa/T1GR3/template_ws/install/ros_gz_example_gazebo")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -43,7 +43,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/sebastian-elliott-pedrosa/template_ws/build/ros_gz_example_gazebo/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+  include("/home/sebastian-elliott-pedrosa/T1GR3/template_ws/build/ros_gz_example_gazebo/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -54,5 +54,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/sebastian-elliott-pedrosa/template_ws/build/ros_gz_example_gazebo/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/sebastian-elliott-pedrosa/T1GR3/template_ws/build/ros_gz_example_gazebo/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
