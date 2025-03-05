@@ -1,4 +1,5 @@
 # T1GR3
+# old flow. New flow near end of document
 to launch this you need 2 terminals open
 One should be in your PX4-Autopilot folder, and anotheer one inside your template_ws folder
 in PX4-Autopilot
@@ -25,7 +26,7 @@ it means your ROS 2 environment is not sourced. Follow these steps to fix it:
 Before running any ROS 2 commands, ensure you're inside your virtual environment:
 
 ```bash
-cd ~/template_ws
+cd template_ws
 source env/bin/activate
 ```
 
@@ -37,11 +38,7 @@ source env/bin/activate
 source /opt/ros/jazzy/setup.bash
 ```
 
-### **For Other ROS 2 Distros (e.g., Humble, Rolling, etc.)**
-```bash
-source /opt/ros/<your-distro>/setup.bash
-```
-Replace `<your-distro>` with your actual ROS 2 version.
+
 
 ---
 
@@ -127,7 +124,7 @@ Or start by creating a workspace and cloning the template repository:
 
     ```bash
     cd ~/template_ws
-    source /opt/ros/$ROS_DISTRO/setup.bash
+    source /opt/ros/jazzy/setup.bash
     sudo rosdep init
     rosdep update
     rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
@@ -142,13 +139,13 @@ Or start by creating a workspace and cloning the template repository:
 1. Source the workspace
 
     ```bash
-    . ~/template_ws/install/setup.sh
+    . ~/T1GR3/template_ws/install/setup.sh
     ```
 
 1. Launch the simulation
 
     ```bash
-    ros2 launch ros_gz_example_bringup diff_drive.launch.py
+    ros2 launch ros_gz_example_bringup px4_gz_sim.launch.py
     ```
 
 For a more detailed guide on using this template see [documentation](https://gazebosim.org/docs/latest/ros_gz_project_template_guide).
