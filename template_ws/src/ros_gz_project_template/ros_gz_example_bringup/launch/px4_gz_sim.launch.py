@@ -20,7 +20,7 @@ def generate_launch_description():
 
         # Run the autonomous drone Python script
         ExecuteProcess(
-            cmd=["python3", os.path.join(home_dir, "T1GR3/template_ws/src/ros_gz_project_template/ros_gz_example_application/autonomous_drone.py")],
+            cmd=["python3", os.path.join(home_dir, "T1GR3/template_ws/src/ros_gz_project_template/ros_gz_inter_drone/autonomous_drone.py")],
             output="screen"
         )
     ])

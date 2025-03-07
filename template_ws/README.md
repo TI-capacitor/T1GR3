@@ -46,7 +46,7 @@ source /opt/ros/jazzy/setup.bash
 If you’ve built your workspace (`template_ws`), you need to source it as well:
 
 ```bash
-source ~/template_ws/install/setup.bash
+source ~/T1GR3/template_ws/install/setup.bash
 ```
 
 ---
