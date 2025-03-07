@@ -4,7 +4,7 @@ from launch.actions import ExecuteProcess
 
 def generate_launch_description():
     home_dir = os.path.expanduser("~")
-    px4_dir = os.path.join(home_dir, "PX4-Autopilot")
+    px4_dir = os.path.join(home_dir, "T1GR3/PX4-Autopilot")
 
     px4_run_command = [
         "bash", "-c",
