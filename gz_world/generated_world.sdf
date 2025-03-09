@@ -1,2 +1,43 @@
-<?xml version='1.0' encoding='utf-8'?>
-<sdf version="1.9"><world name="generated_world"><spherical_coordinates><surface_model>EARTH_WGS84</surface_model><latitude_deg>18.351306721850296</latitude_deg><longitude_deg>-66.18261830442603</longitude_deg><elevation>0</elevation><heading_deg>0</heading_deg></spherical_coordinates><model name="ground_plane"><static>true</static><link name="ground_link"><visual name="ground_visual"><geometry><plane><size>2000 2000</size></plane></geometry><material><script><uri>file://gz_world/satellite_texture.png</uri></script></material></visual></link></model><model name="buildings"><static>true</static><link name="buildings_link"><pose>0 0 0 0 0 0</pose></link></model></world></sdf>
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="generated_world">
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>18.351306721850296</latitude_deg>
+      <longitude_deg>-66.18261830442603</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name="ground_plane">
+  <static>true</static>
+  <link name="ground_link">
+    <collision name="ground_collision">
+      <geometry>
+        <plane>
+          <size>2000 2000</size>
+        </plane>
+      </geometry>
+    </collision>
+    <visual name="ground_visual">
+      <geometry>
+        <plane>
+          <size>2000 2000</size>
+        </plane>
+      </geometry>
+      <material>
+        <script>
+          <uri>file://satellite_texture.jpg</uri>
+          <name>satellite_material</name>
+        </script>
+      </material>
+    </visual>
+  </link>
+</model>
+    <model name="buildings">
+      <static>true</static>
+      <link name="buildings_link">
+        <pose>0 0 0 0 0 0</pose>
+      </link>
+    </model>
+  </world>
+</sdf>
