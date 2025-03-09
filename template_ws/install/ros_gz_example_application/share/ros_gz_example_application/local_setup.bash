@@ -1,1 +1,0 @@
-/home/sebastian-elliott-pedrosa/T1GR3/template_ws/build/ros_gz_example_application/ament_cmake_environment_hooks/local_setup.bash
