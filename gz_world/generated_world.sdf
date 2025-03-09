@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<sdf version="1.9">
+<sdf version="1.6">
   <world name="generated_world">
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
@@ -18,22 +18,21 @@
             </plane>
           </geometry>
           <material>
-            <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map/>
-                <albedo_map>file://gz_world/materials/textures/satellite_texture.jpg</albedo_map>
+                <albedo_map>model://ground_plane/materials/textures/satellite_texture.jpg</albedo_map>
               </metal>
             </pbr>
           </material>
         </visual>
       </link>
-    </model>
-    <model name="buildings">
-      <static>true</static>
-      <link name="buildings_link">
-        <pose>0 0 0 0 0 0</pose>
-      </link>
+      <collision name="ground_collision">
+        <geometry>
+          <plane>
+            <size>2000 2000</size>
+          </plane>
+        </geometry>
+      </collision>
     </model>
   </world>
 </sdf>
