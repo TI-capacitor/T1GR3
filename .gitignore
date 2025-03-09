@@ -27,3 +27,4 @@ colcon/  # If using colcon build system
 *.swp
 .DS_Store
 template_ws/QGroundControl.AppImage
+template_ws/QGroundControl.AppImage
