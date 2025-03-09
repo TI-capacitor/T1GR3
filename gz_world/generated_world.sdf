@@ -9,30 +9,26 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <model name="ground_plane">
-  <static>true</static>
-  <link name="ground_link">
-    <collision name="ground_collision">
-      <geometry>
-        <plane>
-          <size>2000 2000</size>
-        </plane>
-      </geometry>
-    </collision>
-    <visual name="ground_visual">
-      <geometry>
-        <plane>
-          <size>2000 2000</size>
-        </plane>
-      </geometry>
-      <material>
-        <script>
-          <uri>file://satellite_texture.jpg</uri>
-          <name>satellite_material</name>
-        </script>
-      </material>
-    </visual>
-  </link>
-</model>
+      <static>true</static>
+      <link name="ground_link">
+        <visual name="ground_visual">
+          <geometry>
+            <plane>
+              <size>2000 2000</size>
+            </plane>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map/>
+                <albedo_map>file://gz_world/materials/textures/satellite_texture.jpg</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
     <model name="buildings">
       <static>true</static>
       <link name="buildings_link">
