@@ -10,11 +10,12 @@ import math
 API_KEY = os.getenv("GOOGLE_API_KEY")  # Use environment variable for API key
 LAT = 18.351306721850296  # Center Latitude
 LON = -66.18261830442603  # Center Longitude
-WORLD_SIZE = 1000  # Meters (adjust as needed)
+WORLD_SIZE = 2000  # Increased world size in meters
 OUTPUT_DIR = "gz_world"
 SATELLITE_TEXTURE = os.path.join(OUTPUT_DIR, "satellite_texture.png")
 SDF_FILE = os.path.join(OUTPUT_DIR, "generated_world.sdf")
 TILE_ZOOM = 18  # Adjust as needed
+GRID_SIZE = 5  # Increased grid size for more tiles
 
 # Ensure output directory exists
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -43,7 +44,7 @@ def download_tile(x, y, zoom, output_path):
     else:
         raise Exception(f"Failed to download tile ({x}, {y}): {response.status_code} - {response.text}")
 
-# Download a single tile centered on the given location
+# Convert lat/lon to Google Maps tile coordinates
 def lat_lon_to_tile_coords(lat, lon, zoom):
     """Convert latitude and longitude to Google Maps Tile coordinates"""
     n = 2.0 ** zoom
@@ -51,9 +52,31 @@ def lat_lon_to_tile_coords(lat, lon, zoom):
     y = int((1.0 - math.log(math.tan(math.radians(lat)) + (1 / math.cos(math.radians(lat)))) / math.pi) / 2.0 * n)
     return x, y
 
+# Download multiple tiles centered around the given location
 tile_x, tile_y = lat_lon_to_tile_coords(LAT, LON, TILE_ZOOM)
-tile_path = os.path.join(OUTPUT_DIR, f"tile_{tile_x}_{tile_y}.png")
-download_tile(tile_x, tile_y, TILE_ZOOM, tile_path)
+tile_paths = []
+for i in range(-GRID_SIZE // 2, GRID_SIZE // 2 + 1):
+    for j in range(-GRID_SIZE // 2, GRID_SIZE // 2 + 1):
+        tx, ty = tile_x + i, tile_y + j
+        tile_path = os.path.join(OUTPUT_DIR, f"tile_{tx}_{ty}.png")
+        download_tile(tx, ty, TILE_ZOOM, tile_path)
+        tile_paths.append(tile_path)
+
+# Stitch tiles into a single texture
+def stitch_tiles(tile_paths, grid_size, output_texture):
+    tile_images = [Image.open(tile) for tile in tile_paths]
+    texture_size = 256 * grid_size  # Final image resolution
+    stitched_texture = Image.new('RGB', (texture_size, texture_size))
+    
+    for idx, tile_img in enumerate(tile_images):
+        x = (idx % grid_size) * 256
+        y = (idx // grid_size) * 256
+        stitched_texture.paste(tile_img, (x, y))
+    
+    stitched_texture.save(output_texture)
+
+# Stitch tiles together
+stitch_tiles(tile_paths, GRID_SIZE, SATELLITE_TEXTURE)
 
 # Generate SDF World File
 sdf_root = ET.Element("sdf", version="1.9")
@@ -77,7 +100,7 @@ plane = ET.SubElement(geometry, "plane")
 ET.SubElement(plane, "size").text = f"{WORLD_SIZE} {WORLD_SIZE}"
 material = ET.SubElement(visual, "material")
 script = ET.SubElement(material, "script")
-ET.SubElement(script, "uri").text = f"file://{tile_path}"
+ET.SubElement(script, "uri").text = f"file://{SATELLITE_TEXTURE}"
 
 # Placeholder for 3D Buildings
 buildings_model = ET.SubElement(world, "model", name="buildings")
@@ -90,8 +113,8 @@ sdf_tree = ET.ElementTree(sdf_root)
 sdf_tree.write(SDF_FILE, encoding="utf-8", xml_declaration=True)
 
 print(f"Generated world file: {SDF_FILE}")
-print(f"Satellite texture saved: {tile_path}")
+print(f"Satellite texture saved: {SATELLITE_TEXTURE}")
 
 # Visualization of the Satellite Texture
-stitched_image = Image.open(tile_path)
+stitched_image = Image.open(SATELLITE_TEXTURE)
 stitched_image.show()
